@@ -85,6 +85,7 @@ main { max-width: var(--maxw); margin: 0 auto; padding: 0 20px 90px; }
 #combatCustom { background: var(--surface); border: 1px solid var(--ring); border-radius: 8px;
   color: var(--ink); font: inherit; padding: 8px 12px; width: 120px; }
 #combatCustom:focus { outline: none; border-color: var(--m); }
+#combatCustom.active { border-color: var(--m); box-shadow: inset 0 0 0 1px var(--m); color: var(--ink); font-weight: 650; }
 
 .calcgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; margin-bottom: 16px; }
 .calcbox { background: var(--surface); border: 1px solid var(--ring); border-radius: 12px; padding: 14px 18px; margin: 0; }

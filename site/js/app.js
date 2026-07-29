@@ -352,6 +352,11 @@
     const stats = document.getElementById("combatStats"), verdict = document.getElementById("combatVerdict");
     function apply(n, label) {
       btns.querySelectorAll("button").forEach(b => b.classList.toggle("active", +b.dataset.n === n));
+      // Eigene Zahl: Feld bleibt sichtbar als gewaehlte Quelle markiert
+      const customEl = document.getElementById("combatCustom");
+      const isCustom = n > 0 && !SC.some(s => s.n === n);
+      customEl.classList.toggle("active", isCustom);
+      if (!isCustom) customEl.value = "";
       document.dispatchEvent(new CustomEvent("combat-scenario", { detail: { n } }));
       const rest = TOTAL - n, share = n / TOTAL * 100;
       stats.innerHTML = [
@@ -367,11 +372,13 @@
       const b = e.target.closest("button"); if (!b) return;
       apply(+b.dataset.n, b.textContent);
     });
-    // Eigene Zahl
+    // Eigene Zahl: uebernimmt live beim Tippen (der Uebernehmen-Knopf bleibt als expliziter Weg)
     const custom = document.getElementById("combatCustom");
-    const applyCustom = () => { const v = Math.max(0, Math.min(45000, Math.round(+custom.value || 0))); apply(v); };
+    const applyCustom = () => { const v = Math.max(0, Math.min(45000, Math.round(+custom.value || 0))); if (v) apply(v); };
+    let customT;
+    custom.addEventListener("input", () => { clearTimeout(customT); customT = setTimeout(applyCustom, 500); });
     document.getElementById("combatApply").addEventListener("click", applyCustom);
-    custom.addEventListener("keydown", e => { if (e.key === "Enter") applyCustom(); });
+    custom.addEventListener("keydown", e => { if (e.key === "Enter") { clearTimeout(customT); applyCustom(); } });
     apply(0);
   })();
 

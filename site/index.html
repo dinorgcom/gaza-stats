@@ -96,6 +96,16 @@ if (location.pathname.startsWith("/gaza")) document.write('<base href="/gaza/">'
      denn natürliche Säuglingssterblichkeit ist messbar hoch.</p>
   <div class="statrow" id="infantStats"></div>
 
+
+
+  <h3>Geburtsmonate der vor dem Krieg geborenen Unter-1-Jährigen</h3>
+  <p class="note">Je später im Jahr vor Kriegsbeginn geboren, desto länger war ein Baby während der
+     schwersten Bombardierungsphase unter 1 Jahr alt — die Treppe folgt exakt dieser Expositionszeit,
+     nicht dem Muster natürlicher Neugeborenensterblichkeit (die sich in den ersten Lebenstagen konzentriert).</p>
+  <div id="infantRamp" class="viz"></div>
+  <details class="tbl"><summary>Tabellenansicht</summary><div id="infantTable"></div></details>
+  <div class="verdict" id="infantVerdict"></div>
+
   <div class="deduct">
     <div class="deduct-h">Abzug für den Rechner · Säuglinge als natürliche Tote</div>
     <p class="note">Die Gegenrechnung zum Befund unten: Weil <strong>mehr</strong> natürliche Säuglingstode zu erwarten
@@ -114,20 +124,18 @@ if (location.pathname.startsWith("/gaza")) document.write('<base href="/gaza/">'
     </div>
     <p class="fine" id="infDeductNote"></p>
   </div>
-
-  <h3>Geburtsmonate der vor dem Krieg geborenen Unter-1-Jährigen</h3>
-  <p class="note">Je später im Jahr vor Kriegsbeginn geboren, desto länger war ein Baby während der
-     schwersten Bombardierungsphase unter 1 Jahr alt — die Treppe folgt exakt dieser Expositionszeit,
-     nicht dem Muster natürlicher Neugeborenensterblichkeit (die sich in den ersten Lebenstagen konzentriert).</p>
-  <div id="infantRamp" class="viz"></div>
-  <details class="tbl"><summary>Tabellenansicht</summary><div id="infantTable"></div></details>
-  <div class="verdict" id="infantVerdict"></div>
 </section>
 
 <section id="check2" class="mod check">
   <h2>Skeptiker-Check 2: Jungen ab 12</h2>
   <p class="lede">Ab welchem Alter sterben mehr Männer als Frauen — und wie stark? Die Kurve zeigt den
      Männeranteil der Getöteten je Lebensjahr gegen den Männeranteil in der Bevölkerung (~51%).</p>
+
+
+
+  <div id="sexratio" class="viz"></div>
+  <details class="tbl"><summary>Tabellenansicht</summary><div id="sexTable"></div></details>
+  <div class="verdict" id="sexVerdict"></div>
 
   <div class="deduct">
     <div class="deduct-h">Abzug für den Rechner · Jungen-Überhang 12–17</div>
@@ -148,10 +156,6 @@ if (location.pathname.startsWith("/gaza")) document.write('<base href="/gaza/">'
     </div>
     <p class="fine" id="boysDeductNote"></p>
   </div>
-
-  <div id="sexratio" class="viz"></div>
-  <details class="tbl"><summary>Tabellenansicht</summary><div id="sexTable"></div></details>
-  <div class="verdict" id="sexVerdict"></div>
 </section>
 
 <section id="check3" class="mod check">
@@ -159,6 +163,11 @@ if (location.pathname.startsWith("/gaza")) document.write('<base href="/gaza/">'
   <p class="lede">Was wäre, wenn natürliche Todesfälle in der Liste steckten? Stell die Annahme selbst ein —
      die Kurve zeigt die um diese Annahme bereinigte Zahl. Die Altersstruktur setzt der Annahme allerdings
      einen harten Deckel.</p>
+
+  <div id="scenario" class="viz"></div>
+  <details class="tbl"><summary>Tabellenansicht</summary><div id="scenTable"></div></details>
+  <div class="verdict" id="natVerdict"></div>
+
   <div class="sliderrow">
     <label for="natSlider">Unterstellte natürliche Tote pro Jahr in der Liste:</label>
     <input type="range" id="natSlider" min="0" max="8000" step="250" value="0">
@@ -167,9 +176,6 @@ if (location.pathname.startsWith("/gaza")) document.write('<base href="/gaza/">'
   <p class="warn" id="natWarn" hidden>⚠ <strong>Über dem Altersstruktur-Deckel:</strong> Die Liste enthält insgesamt nur
      5.174 Menschen über 60 — mehr als ~5.000 natürliche Tote lassen sich demografisch nicht in ihr verstecken,
      da natürliche Sterblichkeit zu ~62% Menschen über 60 trifft.</p>
-  <div id="scenario" class="viz"></div>
-  <details class="tbl"><summary>Tabellenansicht</summary><div id="scenTable"></div></details>
-  <div class="verdict" id="natVerdict"></div>
 </section>
 
 <section id="eigen" class="mod check">
@@ -178,22 +184,7 @@ if (location.pathname.startsWith("/gaza")) document.write('<base href="/gaza/">'
      Hamas-Hinrichtungen oder Clan-Kämpfe starb, steht mit darin. Ereignisdaten machen einen Teil sichtbar.
      Alle Zahlen sind <strong>dokumentierte Untergrenzen</strong>, die Dunkelziffer ist unbekannt.</p>
 
-  <div class="deduct">
-    <div class="deduct-h">Abzug für den Rechner · durch palästinensische Akteure Getötete</div>
-    <div class="sliderrow">
-      <label for="ownSlider">Angenommene Zahl in der Liste:</label>
-      <input type="range" id="ownSlider" min="0" max="3000" step="25" value="400">
-      <output id="ownOut">400</output>
-    </div>
-    <div class="quickset" id="ownQuick">
-      <button data-v="0">keine</button>
-      <button data-v="400">ACLED dokumentiert (400)</button>
-      <button data-v="500">+ Al-Ahli untere Schätzung (500)</button>
-      <button data-v="700">+ Al-Ahli obere Schätzung (700)</button>
-      <button data-v="1250">+ Fehlraketen-Aufschlag (1.250)</button>
-    </div>
-    <p class="fine" id="ownDeductNote"></p>
-  </div>
+
 
   <div class="statrow" id="ownStats"></div>
   <div class="prose">
@@ -211,6 +202,23 @@ if (location.pathname.startsWith("/gaza")) document.write('<base href="/gaza/">'
     (100–300 Tote, wahrscheinlich PIJ-Fehlrakete) und laut IDF
     <a href="https://www.foxnews.com/world/string-hamas-islamic-jihad-rocket-misfires-resulted-deaths-multiple-civilians-gaza-idf.print">über 550 im eigenen Gebiet eingeschlagene Raketen</a>
     allein bis Ende 2023 (~jede fünfte).</p>
+  </div>
+
+  <div class="deduct">
+    <div class="deduct-h">Abzug für den Rechner · durch palästinensische Akteure Getötete</div>
+    <div class="sliderrow">
+      <label for="ownSlider">Angenommene Zahl in der Liste:</label>
+      <input type="range" id="ownSlider" min="0" max="3000" step="25" value="400">
+      <output id="ownOut">400</output>
+    </div>
+    <div class="quickset" id="ownQuick">
+      <button data-v="0">keine</button>
+      <button data-v="400">ACLED dokumentiert (400)</button>
+      <button data-v="500">+ Al-Ahli untere Schätzung (500)</button>
+      <button data-v="700">+ Al-Ahli obere Schätzung (700)</button>
+      <button data-v="1250">+ Fehlraketen-Aufschlag (1.250)</button>
+    </div>
+    <p class="fine" id="ownDeductNote"></p>
   </div>
 </section>
 
