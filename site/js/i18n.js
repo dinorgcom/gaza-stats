@@ -41,6 +41,18 @@
     "h.rechner": { de: "Der Rechner: deine Schätzung der zivilen Opfer", en: "The calculator: your estimate of civilian deaths", ar: "الحاسبة: تقديرك للضحايا المدنيين", he: "המחשבון: ההערכה שלך להרוגים אזרחיים" },
     "h.fam":     { de: "Familien & Suche", en: "Families & search", ar: "العائلات والبحث", he: "משפחות וחיפוש" },
     "h.meth":    { de: "Methodik & Quellen", en: "Methods & sources", ar: "المنهجية والمصادر", he: "מתודולוגיה ומקורות" },
+    // Teilen
+    "share.page":     { de: "Seite teilen", en: "Share this page", ar: "مشاركة الصفحة", he: "שיתוף העמוד" },
+    "share.estimate": { de: "Deine Einschätzung teilen", en: "Share your estimate", ar: "شارك تقديرك", he: "שתפו את ההערכה שלכם" },
+    "share.copied":   { de: "✓ Link kopiert", en: "✓ Link copied", ar: "✓ تم نسخ الرابط", he: "✓ הקישור הועתק" },
+    "share.text.page": { de: "Gaza: Bilde dir dein Urteil — die Opferliste, statistisch geprüft. Alterspyramide, Kombattanten-Abzug, eigener Rechner.",
+                         en: "Gaza: Make Up Your Mind — the casualty list, statistically examined. Age pyramid, combatant deduction, your own calculator.",
+                         ar: "غزة: كوّن رأيك بنفسك — قائمة القتلى مفحوصة إحصائياً. هرم عمري وخصم المقاتلين وحاسبة خاصة بك.",
+                         he: "עזה: גבשו עמדה בעצמכם — רשימת ההרוגים בבחינה סטטיסטית. פירמידת גילאים, ניכוי לוחמים ומחשבון משלכם." },
+    "share.text.estimate": { de: "Meine Einschätzung: {0} zivile Opfer israelischer Gewalt (Verhältnis 1 : {1}). Prüf die Daten und rechne selbst:",
+                             en: "My estimate: {0} civilian victims of Israeli violence (ratio 1 : {1}). Check the data and run your own numbers:",
+                             ar: "تقديري: {0} ضحية مدنية للعنف الإسرائيلي (النسبة 1 : {1}). افحص البيانات واحسب بنفسك:",
+                             he: "ההערכה שלי: {0} קורבנות אזרחיים של אלימות ישראלית (יחס 1 : {1}). בדקו את הנתונים וחשבו בעצמכם:" },
     // KPIs
     "kpi.total":   { de: "Getötete gesamt (MoH)", en: "Total killed (MoH)", ar: "إجمالي القتلى (وزارة الصحة)", he: "סה\"כ הרוגים (משרד הבריאות)" },
     "kpi.named":   { de: "davon namentlich erfasst", en: "of them named", ar: "منهم مسجّلون بالاسم", he: "מתוכם מזוהים בשם" },
@@ -168,5 +180,8 @@
       `<button data-l="${l}"${l === LANG ? ' class="active"' : ""}>${{ de: "DE", en: "EN", ar: "عربي", he: "עברית" }[l]}</button>`).join("");
     sw.addEventListener("click", e => { const b = e.target.closest("button"); if (b) window.setLang(b.dataset.l); });
     document.querySelector(".toc")?.appendChild(sw);
+    // Signal fuer Module, die auf die fertige Content-Ersetzung warten (z.B. Share-Restore)
+    window.__i18nDone = true;
+    document.dispatchEvent(new CustomEvent("i18n-done"));
   });
 })();

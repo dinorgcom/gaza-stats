@@ -351,6 +351,7 @@
       `<button data-key="${s.key}" data-n="${s.n}">${s.label}<small>${s.sub}</small></button>`).join("");
     const stats = document.getElementById("combatStats"), verdict = document.getElementById("combatVerdict");
     function apply(n, label) {
+      window.__combatN = n;   // fuer Share-Link & Wiederherstellung
       btns.querySelectorAll("button").forEach(b => b.classList.toggle("active", +b.dataset.n === n));
       // Eigene Zahl: Feld bleibt sichtbar als gewaehlte Quelle markiert
       const customEl = document.getElementById("combatCustom");
@@ -379,6 +380,7 @@
     custom.addEventListener("input", () => { clearTimeout(customT); customT = setTimeout(applyCustom, 500); });
     document.getElementById("combatApply").addEventListener("click", applyCustom);
     custom.addEventListener("keydown", e => { if (e.key === "Enter") { clearTimeout(customT); applyCustom(); } });
+    window.__setCombat = apply;   // Wiederherstellung aus Share-Links
     apply(0);
   })();
 
@@ -633,6 +635,7 @@
       // zieht dieselben Menschen zweimal ab.
       el("calcOverlap").hidden = !(nat > 0 && infants > 0);
       el("calcResult").textContent = nf.format(result);
+      window.__calcState = { result: nf.format(result), ratio: ratio != null ? dz(ratio) : null };
       el("calcBreakdown").innerHTML = t("calc.breakdown",
         nf.format(base), nf.format(nat), nf.format(combatN),
         (infants ? t("calc.infTerm", nf.format(infants)) : "") + (boys ? t("calc.boysTerm", nf.format(boys)) : ""),
@@ -690,7 +693,71 @@
     document.addEventListener("combat-scenario", e => { combatN = e.detail.n; update(); });
     ["infant-deduct", "boys-deduct", "own-deduct"].forEach(ev => document.addEventListener(ev, update));
     el("natSlider").addEventListener("input", update);
-    document.querySelectorAll("input[name=calcBase]").forEach(r => r.addEventListener("change", update));
+    // Delegiert: die i18n-Ersetzung der Label-innerHTML erzeugt die Radios neu,
+    // direkte Listener waeren danach tot.
+    document.addEventListener("change", e => { if (e.target && e.target.name === "calcBase") update(); });
     update();
+  })();
+
+  // ---------- Teilen: Seite + eigene Einschaetzung (Zustand wandert in die URL) ----------
+  (function share() {
+    const baseUrl = () => (location.origin + location.pathname).replace(/\/$/, "");
+    const stateHash = () => {
+      const base = document.querySelector("input[name=calcBase]:checked").value;
+      const v = id => +document.getElementById(id).value || 0;
+      return "#e=" + [base, window.__combatN || 0, v("natSlider"), v("infSlider"), v("boysSlider"), v("ownSlider")].join(".");
+    };
+    function restore() {
+      const m = location.hash.match(/^#e=([a-z]+)\.(\d+)\.(\d+)\.(\d+)\.(\d+)\.(\d+)$/);
+      if (!m) return;
+      const [, base, c, n, inf, boys, own] = m;
+      const r = document.querySelector(`input[name=calcBase][value="${base}"]`);
+      if (r) { r.checked = true; r.dispatchEvent(new Event("change")); }
+      const set = (id, val) => { const s = document.getElementById(id); s.value = val; s.dispatchEvent(new Event("input")); };
+      set("natSlider", n); set("infSlider", inf); set("boysSlider", boys); set("ownSlider", own);
+      if (+c && ![6000, 8900, 22000].includes(+c)) document.getElementById("combatCustom").value = c;
+      if (window.__setCombat) window.__setCombat(+c);
+      setTimeout(() => document.getElementById("rechner").scrollIntoView({ behavior: "smooth" }), 300);
+    }
+    const shareText = withState => {
+      const st = window.__calcState || {};
+      return withState ? t("share.text.estimate", st.result || "–", st.ratio != null ? st.ratio : "∞")
+                       : t("share.text.page");
+    };
+    async function doShare(btn, withState) {
+      const url = baseUrl() + (withState ? stateHash() : "");
+      const text = shareText(withState);
+      if (navigator.share) {
+        try { await navigator.share({ title: t("hero.title"), text, url }); return; }
+        catch (e) { if (e && e.name === "AbortError") return; }
+      }
+      try { await navigator.clipboard.writeText(text + " " + url); } catch (e) {}
+      const old = btn.textContent;
+      btn.textContent = t("share.copied");
+      setTimeout(() => { btn.textContent = old; }, 1800);
+    }
+    function bar(holderId, withState, mainKey) {
+      const holder = document.getElementById(holderId); if (!holder) return;
+      const main = document.createElement("button");
+      main.className = "sharemain"; main.type = "button"; main.textContent = t(mainKey);
+      main.addEventListener("click", () => doShare(main, withState));
+      holder.appendChild(main);
+      const enc = encodeURIComponent, url = () => baseUrl() + (withState ? stateHash() : "");
+      [["𝕏", () => "https://twitter.com/intent/tweet?text=" + enc(shareText(withState)) + "&url=" + enc(url())],
+       ["WA", () => "https://wa.me/?text=" + enc(shareText(withState) + " " + url())],
+       ["TG", () => "https://t.me/share/url?url=" + enc(url()) + "&text=" + enc(shareText(withState))],
+       ["FB", () => "https://www.facebook.com/sharer/sharer.php?u=" + enc(url())],
+      ].forEach(([label, fn]) => {
+        const a = document.createElement("a");
+        a.className = "sharemini"; a.target = "_blank"; a.rel = "noopener"; a.href = "#"; a.textContent = label;
+        a.addEventListener("click", () => { a.href = fn(); });   // Zustand erst beim Klick einfrieren
+        holder.appendChild(a);
+      });
+    }
+    bar("topShare", false, "share.page");
+    bar("calcShare", true, "share.estimate");
+    // Restore erst NACH der i18n-Content-Ersetzung (die erzeugt die Basis-Radios neu)
+    if (window.__i18nDone) restore();
+    else document.addEventListener("i18n-done", restore, { once: true });
   })();
 })();
