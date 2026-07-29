@@ -13,9 +13,9 @@ window.I18N_CONTENT = [
   ar: `<span class="sw sw-m"></span>رجال <span class="sw sw-f"></span>نساء <span class="sw sw-c"></span>منهم مقاتلون (افتراض السيناريو)`,
   he: `<span class="sw sw-m"></span>גברים <span class="sw sw-f"></span>נשים <span class="sw sw-c"></span>מהם לוחמים (הנחת תרחיש)`}],
 ["#kombattanten .lede", {
-  en: `The list knows no combatants — there are only competing outside claims. Pick a source: the pyramid above shades the deduction into the male bars (assumption: male, 16–59, distributed proportionally), and the arithmetic appears here.`,
-  ar: `القائمة لا تميّز المقاتلين — لا توجد سوى أرقام خارجية متنافسة. اختر مصدراً: الهرم أعلاه يُظهر الخصم كجزء داكن في أعمدة الرجال (الافتراض: ذكور 16–59، بتوزيع نسبي)، والحساب يظهر هنا.`,
-  he: `הרשימה אינה מבחינה בלוחמים — יש רק טענות חיצוניות מתחרות. בחרו מקור: הפירמידה למעלה מציגה את הניכוי כחלק כהה בעמודות הגברים (הנחה: זכרים 16–59, בחלוקה יחסית), והחישוב מופיע כאן.`}],
+  en: `The list knows no combatants — there are only competing outside claims. Pick a source: the pyramid above shades the deduction into the male bars (assumption: male, 16–59, distributed proportionally), and the arithmetic appears here. In fairness the official IDF figure (22,000+) is preset — since the base count comes from the other side; change it any time.`,
+  ar: `القائمة لا تميّز المقاتلين — لا توجد سوى أرقام خارجية متنافسة. اختر مصدراً: الهرم أعلاه يُظهر الخصم كجزء داكن في أعمدة الرجال (الافتراض: ذكور 16–59، بتوزيع نسبي)، والحساب يظهر هنا. إنصافاً، الرقم الإسرائيلي الرسمي (+22,000) هو الافتراضي — لأن الإحصاء الأساسي من الطرف الآخر؛ ويمكنك تغييره متى شئت.`,
+  he: `הרשימה אינה מבחינה בלוחמים — יש רק טענות חיצוניות מתחרות. בחרו מקור: הפירמידה למעלה מציגה את הניכוי כחלק כהה בעמודות הגברים (הנחה: זכרים 16–59, בחלוקה יחסית), והחישוב מופיע כאן. מטעמי הוגנות הנתון הרשמי של צה"ל (+22,000) מוגדר כברירת מחדל — שהרי המניין הבסיסי מגיע מהצד השני; אפשר לשנות בכל עת.`}],
 ["label[for=combatCustom]", { en: `Or your own number:`, ar: `أو رقمك الخاص:`, he: `או מספר משלכם:` }],
 ["#combatApply", { en: `Apply`, ar: `تطبيق`, he: `החל` }],
 ["#zeit .lede", {

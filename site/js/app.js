@@ -381,7 +381,9 @@
     document.getElementById("combatApply").addEventListener("click", applyCustom);
     custom.addEventListener("keydown", e => { if (e.key === "Enter") { clearTimeout(customT); applyCustom(); } });
     window.__setCombat = apply;   // Wiederherstellung aus Share-Links
-    apply(0);
+    // Fairness-Default: Basis ist die MoH-Zaehlung (palaestinensische Seite), also startet
+    // der Kombattanten-Abzug mit der offiziellen IDF-Angabe (israelische Seite) — aenderbar.
+    apply(22000);
   })();
 
   // ---------- Getoetet durch die eigene Seite ----------
@@ -604,7 +606,7 @@
     const months = Object.keys(NAT.monthly_cum);
     const [eY, eM] = months[months.length - 1].split("-").map(Number);
     const yearsTotal = (eY - 2023) + (eM - 10) / 12;
-    let combatN = 0;
+    let combatN = window.__combatN || 0;   // Kombattanten-Modul lief schon (Default 22.000)
     const el = id => document.getElementById(id);
     const dz = v => v.toFixed(1).replace(".", ",");
     // Alle Abzuege werden in ihren Kapiteln geregelt; hier wird nur noch der
