@@ -59,7 +59,7 @@ sans = ImageFont.truetype(os.path.join(F, "arial.ttf"), 26)
 GOLD, WHITE, GREY = (212, 168, 83), (245, 242, 238), (196, 188, 180)
 d.text((60, 356), "GAZA", font=serif_b, fill=GOLD)
 w = d.textlength("GAZA", font=serif_b)
-d.text((60 + w + 24, 396), "— THE DEAD, IN NUMBERS", font=serif, fill=WHITE)
+d.text((60 + w + 24, 396), "— MAKE UP YOUR MIND", font=serif, fill=WHITE)
 d.text((62, 486), "72,835 names, examined: age pyramid · combatant deduction · your own calculation",
        font=sans, fill=GREY)
 d.text((62, 526), "English · العربية · עברית · Deutsch", font=sans, fill=GREY)

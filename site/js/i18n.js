@@ -11,7 +11,7 @@
   const D = {
     // Hero & Chrome
     "hero.kicker":  { de: "biest.com · Statistikprojekt", en: "biest.com · statistics project", ar: "biest.com · مشروع إحصائي", he: "biest.com · פרויקט סטטיסטי" },
-    "hero.title":   { de: "Gaza: Die Toten in Zahlen", en: "Gaza: The Dead, in Numbers", ar: "غزة: القتلى بالأرقام", he: "עזה: המתים במספרים" },
+    "hero.title":   { de: "Gaza: Bilde dir dein Urteil", en: "Gaza: Make Up Your Mind", ar: "غزة: كوّن رأيك بنفسك", he: "עזה: גבשו עמדה בעצמכם" },
     "hero.sub":     { de: "Die Opferliste des Gesundheitsministeriums in Gaza, konsolidiert von Iraq Body Count — namentlich, mit ID, Geburtsdatum, Alter und Geschlecht. Hier wird sie nicht nur gezeigt, sondern geprüft: auf Plausibilität, Lücken und die Streitfragen der Statistik.",
                       en: "The Gaza Health Ministry's casualty list, consolidated by Iraq Body Count — every name with ID, birth date, age and sex. Here it is not just displayed but stress-tested: for plausibility, gaps, and the statistical disputes.",
                       ar: "قائمة قتلى وزارة الصحة في غزة، موحّدة عبر Iraq Body Count — بالأسماء مع الهوية وتاريخ الميلاد والعمر والجنس. هنا لا تُعرض فحسب، بل تُفحص: المعقولية والثغرات والخلافات الإحصائية.",
