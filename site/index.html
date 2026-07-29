@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gaza: Die Toten in Zahlen — biest.com</title>
+<meta name="description" content="Statistische Analyse der Opferliste des Gazakriegs 2023–2026: Alterspyramide, Skeptiker-Checks, Zeitverlauf und Presse-Perspektiven.">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/i18n.js"></script>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+
+<header class="hero">
+  <p class="kicker">biest.com · Statistikprojekt</p>
+  <h1>Gaza: Die Toten in Zahlen</h1>
+  <p class="sub">Die Opferliste des Gesundheitsministeriums in Gaza, konsolidiert von Iraq Body Count —
+     namentlich, mit ID, Geburtsdatum, Alter und Geschlecht. Hier wird sie nicht nur gezeigt,
+     sondern geprüft: auf Plausibilität, Lücken und die Streitfragen der Statistik.</p>
+  <div class="kpis" id="kpis"></div>
+  <p class="asof" id="asof"></p>
+</header>
+
+<nav class="toc">
+  <a href="#pyramide">Pyramide</a>
+  <a href="#kombattanten">Kombattanten-Abzug</a>
+  <a href="#zeit">Zeitverlauf&nbsp;&amp;&nbsp;Presse</a>
+  <a href="#check1">Säuglinge</a>
+  <a href="#check2">Jungen&nbsp;ab&nbsp;12</a>
+  <a href="#check3">Natürliche&nbsp;Tote</a>
+  <a href="#eigen">Eigene&nbsp;Seite</a>
+  <a href="#rechner">Rechner</a>
+  <a href="#familien">Familien&nbsp;&amp;&nbsp;Suche</a>
+  <a href="#methodik">Methodik</a>
+</nav>
+
+<main>
+
+<section id="pyramide" class="mod">
+  <h2>Wer starb: die Alterspyramide</h2>
+  <p class="lede">Alle 72.835 namentlich Erfassten — <strong>ein Balken pro Lebensjahr</strong> (0 bis 90+).
+     Ziehen zum Drehen, Rad zum Zoomen, Zeigen für Details — am Handy mit <strong>zwei Fingern</strong> drehen.
+     Mit den Szenario-Knöpfen unten lässt sich der IDF-Kombattanten-Abzug direkt in der Pyramide darstellen.</p>
+  <div class="legend"><span class="sw sw-m"></span>Männer <span class="sw sw-f"></span>Frauen
+    <span class="sw sw-c"></span>davon Kombattanten (Szenario-Annahme)</div>
+  <div id="pyr3d" class="viz3d" aria-label="3D-Alterspyramide"></div>
+  <details class="tbl"><summary>Tabellenansicht</summary><div id="pyrTable"></div></details>
+</section>
+
+<section id="kombattanten" class="mod check">
+  <h2>Der Kombattanten-Abzug</h2>
+  <p class="lede">Die Liste kennt keine Kombattanten — es gibt nur konkurrierende Angaben von außen.
+     Wähle eine Quelle: Die Pyramide oben blendet den Abzug als dunklen Anteil in die Männer-Balken ein
+     (Annahme: männlich, 16–59, proportional verteilt), und hier erscheint die Rechnung.</p>
+  <div class="scenbtns" id="combatBtns"></div>
+  <div class="sliderrow">
+    <label for="combatCustom">Oder eigene Zahl:</label>
+    <input type="number" id="combatCustom" min="0" max="45000" step="100" placeholder="z. B. 15000">
+    <button id="combatApply" class="applybtn">Übernehmen</button>
+  </div>
+  <div class="statrow" id="combatStats"></div>
+  <div class="verdict" id="combatVerdict"></div>
+</section>
+
+<section id="zeit" class="mod">
+  <h2>Der Verlauf: Woche für Woche</h2>
+  <p class="lede">Neu gemeldete Tote pro Woche. Die Punkte markieren Schlüsselereignisse —
+     anklicken zeigt, wie unterschiedliche Medien dasselbe Ereignis überschrieben haben.</p>
+  <div id="weekly" class="viz"></div>
+  <div id="eventPanel" class="event-panel" hidden></div>
+  <details class="tbl"><summary>Tabellenansicht</summary><div id="weeklyTable"></div></details>
+</section>
+
+<section id="check1" class="mod check">
+  <h2>Skeptiker-Check 1: Die Säuglinge</h2>
+  <p class="lede">Wären natürliche Todesfälle in der Liste, müssten die Säuglinge sie verraten —
+     denn natürliche Säuglingssterblichkeit ist messbar hoch.</p>
+  <div class="statrow" id="infantStats"></div>
+
+  <div class="deduct">
+    <div class="deduct-h">Abzug für den Rechner · Säuglinge als natürliche Tote</div>
+    <p class="note">Die Gegenrechnung zum Befund unten: Weil <strong>mehr</strong> natürliche Säuglingstode zu erwarten
+       gewesen wären (1.690), als die Liste überhaupt Unter-1-Jährige enthält (1.072), lässt sich argumentieren,
+       ein Teil oder alle der gelisteten Säuglinge seien natürliche Todesfälle. Stell die Annahme selbst ein.</p>
+    <div class="sliderrow">
+      <label for="infSlider">Gelistete Unter-1-Jährige als natürliche Tote abziehen:</label>
+      <input type="range" id="infSlider" min="0" max="1072" step="1" value="0">
+      <output id="infOut">0</output>
+    </div>
+    <div class="quickset" id="infQuick">
+      <button data-v="0">keine</button>
+      <button data-v="411">nur die im Krieg geborenen (411)</button>
+      <button data-v="661">nur die vor dem Krieg geborenen (661)</button>
+      <button data-v="1072">alle 1.072</button>
+    </div>
+    <p class="fine" id="infDeductNote"></p>
+  </div>
+
+  <h3>Geburtsmonate der vor dem Krieg geborenen Unter-1-Jährigen</h3>
+  <p class="note">Je später im Jahr vor Kriegsbeginn geboren, desto länger war ein Baby während der
+     schwersten Bombardierungsphase unter 1 Jahr alt — die Treppe folgt exakt dieser Expositionszeit,
+     nicht dem Muster natürlicher Neugeborenensterblichkeit (die sich in den ersten Lebenstagen konzentriert).</p>
+  <div id="infantRamp" class="viz"></div>
+  <details class="tbl"><summary>Tabellenansicht</summary><div id="infantTable"></div></details>
+  <div class="verdict" id="infantVerdict"></div>
+</section>
+
+<section id="check2" class="mod check">
+  <h2>Skeptiker-Check 2: Jungen ab 12</h2>
+  <p class="lede">Ab welchem Alter sterben mehr Männer als Frauen — und wie stark? Die Kurve zeigt den
+     Männeranteil der Getöteten je Lebensjahr gegen den Männeranteil in der Bevölkerung (~51%).</p>
+
+  <div class="deduct">
+    <div class="deduct-h">Abzug für den Rechner · Jungen-Überhang 12–17</div>
+    <p class="note">Männliche Tote zwischen 12 und 17, die über dem demografisch erwarteten Verhältnis (105:100)
+       liegen: <b id="boysTotal">…</b> Personen. Wie viel davon als Kämpfer zählen soll, ist eine Deutung —
+       nicht die Liste. Deshalb hier ein Regler statt einer Zahl: Ziehe den Anteil, den <em>du</em> für
+       plausibel hältst.</p>
+    <div class="sliderrow">
+      <label for="boysSlider">Anteil des Überhangs, der als Kämpfer gewertet wird:</label>
+      <input type="range" id="boysSlider" min="0" max="100" step="5" value="0">
+      <output id="boysOut">0 %</output>
+    </div>
+    <div class="quickset" id="boysQuick">
+      <button data-v="0">keiner (0 %)</button>
+      <button data-v="25">ein Viertel</button>
+      <button data-v="50">die Hälfte</button>
+      <button data-v="100">der ganze Überhang</button>
+    </div>
+    <p class="fine" id="boysDeductNote"></p>
+  </div>
+
+  <div id="sexratio" class="viz"></div>
+  <details class="tbl"><summary>Tabellenansicht</summary><div id="sexTable"></div></details>
+  <div class="verdict" id="sexVerdict"></div>
+</section>
+
+<section id="check3" class="mod check">
+  <h2>Skeptiker-Check 3: Natürliche Tote</h2>
+  <p class="lede">Was wäre, wenn natürliche Todesfälle in der Liste steckten? Stell die Annahme selbst ein —
+     die Kurve zeigt die um diese Annahme bereinigte Zahl. Die Altersstruktur setzt der Annahme allerdings
+     einen harten Deckel.</p>
+  <div class="sliderrow">
+    <label for="natSlider">Unterstellte natürliche Tote pro Jahr in der Liste:</label>
+    <input type="range" id="natSlider" min="0" max="8000" step="250" value="0">
+    <output id="natOut">0</output>
+  </div>
+  <p class="warn" id="natWarn" hidden>⚠ <strong>Über dem Altersstruktur-Deckel:</strong> Die Liste enthält insgesamt nur
+     5.174 Menschen über 60 — mehr als ~5.000 natürliche Tote lassen sich demografisch nicht in ihr verstecken,
+     da natürliche Sterblichkeit zu ~62% Menschen über 60 trifft.</p>
+  <div id="scenario" class="viz"></div>
+  <details class="tbl"><summary>Tabellenansicht</summary><div id="scenTable"></div></details>
+  <div class="verdict" id="natVerdict"></div>
+</section>
+
+<section id="eigen" class="mod check">
+  <h2>Getötet durch die eigene Seite</h2>
+  <p class="lede">Die MoH-Liste hat kein Täterfeld — auch wer durch fehlgegangene palästinensische Raketen,
+     Hamas-Hinrichtungen oder Clan-Kämpfe starb, steht mit darin. Ereignisdaten machen einen Teil sichtbar.
+     Alle Zahlen sind <strong>dokumentierte Untergrenzen</strong>, die Dunkelziffer ist unbekannt.</p>
+
+  <div class="deduct">
+    <div class="deduct-h">Abzug für den Rechner · durch palästinensische Akteure Getötete</div>
+    <div class="sliderrow">
+      <label for="ownSlider">Angenommene Zahl in der Liste:</label>
+      <input type="range" id="ownSlider" min="0" max="3000" step="25" value="400">
+      <output id="ownOut">400</output>
+    </div>
+    <div class="quickset" id="ownQuick">
+      <button data-v="0">keine</button>
+      <button data-v="400">ACLED dokumentiert (400)</button>
+      <button data-v="500">+ Al-Ahli untere Schätzung (500)</button>
+      <button data-v="700">+ Al-Ahli obere Schätzung (700)</button>
+      <button data-v="1250">+ Fehlraketen-Aufschlag (1.250)</button>
+    </div>
+    <p class="fine" id="ownDeductNote"></p>
+  </div>
+
+  <div class="statrow" id="ownStats"></div>
+  <div class="prose">
+    <p><a href="https://acleddata.com/report/gaza-after-two-years-israel-expands-control-and-sows-chaos-hamas-adapts-survive">ACLED zählt seit Oktober 2023</a>
+    über 220 Vorfälle intra-palästinensischer Gewalt mit rund 400 Toten — Polizisten, Clan- und Bandenführer,
+    Diebe, Anti-Hamas-Aktivisten, angebliche Kollaborateure. Fast 70&nbsp;% davon nach dem Bruch der Waffenruhe im März 2025.
+    Der <a href="https://acleddata.com/update/middle-east-overview-november-2025">November 2025</a> war mit 60 Toten der
+    tödlichste Monat dieser Gewalt: Hamas-Einheiten (Sahm, Radea) gingen gegen mindestens drei große Clans vor,
+    darunter die <a href="https://en.wikipedia.org/wiki/2025_Hamas%E2%80%93Doghmush_conflict">Doghmush</a> —
+    deren Familienname in unserer Totenliste 306-mal steht. Dazu kommen
+    <a href="https://en.wikipedia.org/wiki/2025_Hamas_executions">33+ öffentliche Hinrichtungen (Sep–Okt 2025)</a>,
+    laut <a href="https://www.timesofisrael.com/hamas-members-executed-and-maimed-dozens-of-palestinians-in-gaza-un-report-says/">UN-Bericht</a>
+    hunderte Fälle außergerichtlicher Bestrafung, die größte Einzelkontroverse
+    <a href="https://www.hrw.org/news/2023/11/26/gaza-findings-october-17-al-ahli-hospital-explosion">Al-Ahli</a>
+    (100–300 Tote, wahrscheinlich PIJ-Fehlrakete) und laut IDF
+    <a href="https://www.foxnews.com/world/string-hamas-islamic-jihad-rocket-misfires-resulted-deaths-multiple-civilians-gaza-idf.print">über 550 im eigenen Gebiet eingeschlagene Raketen</a>
+    allein bis Ende 2023 (~jede fünfte).</p>
+  </div>
+</section>
+
+<section id="rechner" class="mod check">
+  <h2>Der Rechner: deine Schätzung der zivilen Opfer</h2>
+  <p class="lede">Keine Instanz kennt die wahre Zahl — aber jede Annahme lässt sich offenlegen.
+     <strong>Jeder Abzug wird dort eingestellt, wo er begründet wird</strong> — in seinem Kapitel.
+     Hier läuft alles zusammen: Du wählst nur noch die Ausgangsbasis, der Rest übernimmt deine Regler.
+     Das Ergebnis ist <em>deine</em> Rechnung — mit offenem Rechenweg.</p>
+  <div class="calcgrid">
+    <fieldset class="calcbox">
+      <legend>1 · Ausgangsbasis</legend>
+      <label><input type="radio" name="calcBase" value="moh" checked> MoH-Zählung: <b>73.333</b></label>
+      <label><input type="radio" name="calcBase" value="rubble"> + ~10.000 Vermisste unter Trümmern: <b>83.333</b></label>
+      <label><input type="radio" name="calcBase" value="lancet"> Lancet-Survey-Niveau fortgeschrieben: <b id="lancetBase">…</b></label>
+    </fieldset>
+    <fieldset class="calcbox">
+      <legend>2 · Abzüge — eingestellt in den Kapiteln</legend>
+      <div class="calcline">− Kombattanten: <b id="calcCombat">0</b>
+        <span class="fine"><a href="#kombattanten">→ Kapitel „Kombattanten-Abzug“</a></span></div>
+      <div class="calcline">− natürliche Tote: <b id="calcNatural">0</b>
+        <span class="fine" id="calcNaturalHint"><a href="#check3">→ Check 3</a></span></div>
+      <div class="calcline">− Säuglinge als natürliche Tote: <b id="calcInfants">0</b>
+        <span class="fine"><a href="#check1">→ Check 1</a></span></div>
+      <div class="calcline">− Jungen-Überhang 12–17: <b id="calcBoysN">0</b>
+        <span class="fine"><a href="#check2">→ Check 2</a></span></div>
+      <div class="calcline">− durch palästinensische Akteure getötet: <b id="calcOwnN">400</b>
+        <span class="fine"><a href="#eigen">→ Kapitel „Eigene Seite“</a></span></div>
+      <p class="warn" id="calcOverlap" hidden>⚠ <strong>Doppelzählung:</strong> Säuglinge sind eine Teilmenge der
+        natürlichen Toten — beide Regler zusammen ziehen dieselben Menschen zweimal ab.</p>
+    </fieldset>
+  </div>
+  <div class="calcresult">
+    <div class="calchero"><span>Zivile Opfer israelischer Gewalt nach deinen Annahmen</span><b id="calcResult">–</b></div>
+    <div id="calcBreakdown" class="note"></div>
+  </div>
+  <h3>Einordnung: getötete Zivilisten je getötetem Kombattanten (1 : X)</h3>
+  <p class="note">Auf je einen getöteten Kämpfer kommen wie viele getötete Zivilisten? Vergleiche über Kriege hinweg
+     sind methodisch heikel (unterschiedliche Zählweisen und Interessen) — Spannen zeigen die konkurrierenden Quellen.
+     Dein Regler-Ergebnis wird live eingezeichnet.</p>
+  <div id="ratioChart" class="viz"></div>
+  <p class="fine">Quellen: <a href="https://www.frontiersin.org/journals/public-health/articles/10.3389/fpubh.2024.1359189/full">Frontiers in Public Health (Gaza-Kriege, Modell)</a> ·
+     <a href="https://www.ochaopt.org/content/key-figures-2014-hostilities">OCHA 2014</a> ·
+     <a href="https://www.foxnews.com/world/israeli-army-rights-groups-give-clashing-views-in-gaza-war-over-ratio-of-civilians-killed.amp">IDF-Position 2014</a> ·
+     <a href="https://www.aljazeera.com/news/2025/8/21/israeli-data-shows-83-percent-of-gaza-war-dead-are-civilians-report">IDF-Intel-DB 2025</a> ·
+     Mosul: <a href="https://www.aljazeera.com/news/2017/12/20/more-than-9000-killed-in-battle-for-mosul-ap">AP 9.000–11.000 Zivilisten</a> /
+     <a href="https://mwi.westpoint.edu/urban-warfare-project-case-study-2-battle-of-mosul/">~3.000–12.000 IS-Verteidiger (MWI)</a> ·
+     <a href="https://military-history.fandom.com/wiki/Civilian_casualty_ratio">Irak 2003–23 (IBC-basiert)</a> ·
+     <a href="https://theconversation.com/calculating-the-costs-of-the-afghanistan-war-in-lives-dollars-and-years-164588">Afghanistan (Costs of War: 46.319 Zivilisten, ~125.000 Kombattanten aller Seiten)</a> ·
+     <a href="https://press.un.org/en/2022/sc14904.doc.htm">UN-„90 %“-Formel</a> (<a href="https://www.tandfonline.com/doi/abs/10.1080/00396338.2010.494880">methodisch umstritten</a>).</p>
+</section>
+
+<section id="familien" class="mod">
+  <h2>Familien &amp; Suche</h2>
+  <p class="lede">Palästinensische Namen sind Ketten: Eigenname – Vater – Großvater – Familienname.
+     Der Familienname ist zugleich der Clan (Hamula) — so lässt sich fragen: Wie viele Tote trägt eine Familie?
+     Wie viele davon Frauen, Kinder? Und wo starben mutmaßlich ganze Geschwistergruppen
+     (gleicher Vater <em>und</em> Großvater)?</p>
+  <input type="search" id="famSearch" placeholder="Familie oder Person suchen — z.&nbsp;B. „al-najjar“, „doghmush“, „Mohammed…“" autocomplete="off">
+  <div id="searchInfo" class="note"></div>
+  <div id="famResults"></div>
+  <div id="famDetail" class="event-panel" hidden></div>
+  <h3>Die 100 Familien mit den meisten Toten</h3>
+  <p class="note">Ein Klick auf eine Spaltenüberschrift sortiert um — auch nach Abzeichen, dann stehen die
+     Familien mit dokumentierten Einzelpersonen oben. Zeile anklicken öffnet das Detail-Panel.</p>
+  <div class="legend" style="flex-wrap:wrap;font-size:13px">
+    <span><span class="bdg b-f">★</span> dokumentierte Kämpfer/Kommandeure</span>
+    <span><span class="bdg b-p">✎</span> getötete Journalisten (mit Anzahl)</span>
+    <span><span class="bdg b-m">✚</span> getötete Gesundheitsarbeiter (Anzahl; HWW-Liste Stand 5/2024)</span>
+    <span><span class="bdg b-pr">⛓</span> Austausch-Häftling</span>
+    <span><span class="bdg b-o">◆</span> Hamas-Funktionär</span>
+    <span><span class="bdg b-v">●</span> bekannter Zivilopfer-Fall</span>
+  </div>
+  <div id="famTop" class="famtop"></div>
+  <h3>Woher die Namen kommen</h3>
+  <div class="prose">
+    <p>Drei Muster dominieren: <strong>Herkunftsnamen</strong> — deine Vermutung stimmt hier —
+    (al-Masri = „der Ägypter“, Hijazi = „aus dem Hedschas“, al-Kurd = „der Kurde“, Halabi = „aus Aleppo“;
+    dazu tragen viele 48er-Flüchtlingsfamilien Namen ihrer Herkunftsdörfer),
+    <strong>Berufsnamen</strong> (al-Najjar = „Zimmermann“, Haddad = „Schmied“) und
+    <strong>Stammes-/Ahnennamen</strong> (Doghmush, al-Astal, Bakr, Awad). Die Bakr sind das Gegenbeispiel zur
+    Flüchtlingsregel: seit Jahrhunderten Fischer am Strand von Gaza-Stadt. Bei den größten Familien der Liste
+    zeigt das Detail-Panel jetzt Herkunft und bekannte Mitglieder — von Mohammed Deif (bürgerlich al-Masri)
+    über die Sinwar-Brüder bis zu den vier Bakr-Jungen von 2014 und Mumtaz Dughmush („Army of Islam“).</p>
+  </div>
+  <p class="note">Zuordnung kleinerer Familiennamen zu Groß-Clans (z.&nbsp;B. eingeheiratete Zweige) ist aus der Liste
+     nicht ableitbar — der Familienname ist die feinste belastbare Ebene. Geschwister-Cluster sind eine Heuristik
+     über die Namenskette und können Cousins gleichen Namens einschließen.</p>
+  <p class="fine">Warum so wenige ★/◆? Eine vollständige öffentliche Kämpferliste existiert nicht — die israelische
+     Intel-Datenbank (8.900 Namen) ist geheim, Hamas publiziert nur selektiv. Gezeigt wird ausschließlich namentlich
+     Belegtes aus Sekundärquellen (Wilson Center, ynet, IDF-Meldungen). Zum ✎-Abzeichen gehört die Gegenposition:
+     Das israelische <a href="https://www.timesofisrael.com/finally-naming-their-war-dead-gazan-terror-groups-admit-slain-journalists-were-fighters/">ITIC bestreitet den Zivilstatus</a>
+     eines erheblichen Teils der als Journalisten Gezählten — die Presse-Liste ist eine palästinensische Quelle.</p>
+</section>
+
+<section id="methodik" class="mod">
+  <h2>Methodik &amp; Quellen</h2>
+  <div class="prose">
+    <p><strong>Datengrundlage:</strong> Namensliste des Gesundheitsministeriums in Gaza (Stand 7.&nbsp;Mai 2026),
+    konsolidiert durch Iraq Body Count, maschinenlesbar via
+    <a href="https://data.techforpalestine.org/docs/killed-in-gaza/">Tech for Palestine</a>;
+    Tageszeitreihe ebendort. 72.835 Einträge, alle mit 9-stelliger ID, Geburtsdatum, Alter, Geschlecht.</p>
+    <p><strong>Was die Liste nicht kann:</strong> Sie unterscheidet nicht zwischen Kombattanten und Zivilisten,
+    enthält weder Todesdatum noch Todesort pro Person und wird laufend revidiert (zwischen zwei Fassungen wurden
+    ~3.400 Namen entfernt). Unabhängige Schätzungen liegen teils deutlich <em>über</em> ihr
+    (Lancet-Haushaltssurvey: 75.200 Gewalttote bis 5.1.2025), die geleakte IDF-Intelligence-Datenbank zählte
+    bis Mai 2025 8.900 tote Kämpfer, die offizielle IDF-Angabe lag bei 22.000+.</p>
+    <p><strong>Alle Prüfungen auf dieser Seite sind reproduzierbar:</strong> Rohdaten + Skripte im Repo.
+    Wichtigste Quellen:
+    <a href="https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(23)02713-7/fulltext">Lancet: No evidence of inflated mortality reporting</a> ·
+    <a href="https://aoav.org.uk/2026/lancet-study-estimates-75000-violent-deaths-in-gazas-first-16-months-aoav-board-member-mike-spagat-lead-author/">Gaza Mortality Survey (Spagat et al.)</a> ·
+    <a href="https://www.haaretz.com/israel-news/2026-01-29/ty-article/.premium/idf-accepts-gaza-health-ministry-estimate-of-over-70-000-palestinians-killed-in-the-war/0000019c-0918-dec4-adfd-fd5dde830000">Haaretz: IDF akzeptiert MoH-Zahl</a> ·
+    <a href="https://www.aljazeera.com/news/2025/8/21/israeli-data-shows-83-percent-of-gaza-war-dead-are-civilians-report">+972/Guardian-Recherche zur IDF-Datenbank</a> ·
+    <a href="https://henryjacksonsociety.org/publications/questionable-counting/">Henry Jackson Society: Questionable Counting (Gegenposition)</a> ·
+    <a href="https://www.pcbs.gov.ps/">PCBS</a> (Demografie) ·
+    <a href="https://airwars.org/moh-list/">Airwars</a>.</p>
+    <p class="fine">Ein Projekt von biest.com. Keine Partei dieser Auseinandersetzung ist Quelle dieser Seite;
+    gezeigt wird, was sich aus den Daten selbst ableiten lässt — mit offengelegten Annahmen in beide Richtungen.</p>
+  </div>
+</section>
+
+</main>
+
+<div id="tooltip" class="tooltip" hidden></div>
+<script src="js/events.js"></script>
+<script src="js/famnotes.js"></script>
+<script src="js/content.js"></script>
+<script src="js/app.js"></script>
+<script type="module" src="js/pyramid3d.js"></script>
+</body>
+</html>

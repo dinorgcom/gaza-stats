@@ -1,0 +1,337 @@
+{
+ "total": 72835,
+ "sex": {
+  "m": 50959,
+  "f": 21876
+ },
+ "age_known": 72835,
+ "age_missing": 0,
+ "age_buckets": {
+  "<1": {
+   "total": 1072,
+   "m": 560,
+   "f": 512
+  },
+  "1-4": {
+   "total": 4221,
+   "m": 2225,
+   "f": 1996
+  },
+  "5-9": {
+   "total": 5485,
+   "m": 2917,
+   "f": 2568
+  },
+  "10-14": {
+   "total": 6235,
+   "m": 3780,
+   "f": 2455
+  },
+  "15-17": {
+   "total": 4624,
+   "m": 3321,
+   "f": 1303
+  },
+  "18-29": {
+   "total": 19360,
+   "m": 14869,
+   "f": 4491
+  },
+  "30-39": {
+   "total": 14579,
+   "m": 11357,
+   "f": 3222
+  },
+  "40-49": {
+   "total": 7424,
+   "m": 5494,
+   "f": 1930
+  },
+  "50-59": {
+   "total": 4661,
+   "m": 3176,
+   "f": 1485
+  },
+  "60-69": {
+   "total": 3070,
+   "m": 2010,
+   "f": 1060
+  },
+  "70-79": {
+   "total": 1525,
+   "m": 971,
+   "f": 554
+  },
+  "80-99": {
+   "total": 574,
+   "m": 276,
+   "f": 298
+  },
+  "100+": {
+   "total": 5,
+   "m": 3,
+   "f": 2
+  },
+  "unbekannt": {
+   "total": 0,
+   "m": 0,
+   "f": 0
+  }
+ },
+ "minors": 21637,
+ "women_adult": 13042,
+ "men_18_59": 34896,
+ "age65plus": 3398,
+ "age100plus": 5,
+ "dob_known": 72835,
+ "dob_missing_age_known": 0,
+ "both_missing": 0,
+ "warborn": 561,
+ "age_heaping": {
+  "no_dob_pct": 0,
+  "no_dob_n": 0,
+  "with_dob_pct": 20.0,
+  "with_dob_n": 42975
+ },
+ "id_lengths": {
+  "9": 72835
+ },
+ "id_999_prefix": 9,
+ "id_dupes": 0,
+ "id_first_digit": {
+  "4": 42445,
+  "7": 169,
+  "8": 15153,
+  "9": 15068
+ },
+ "name_dupes_distinct": 72,
+ "name_dupes_persons": 146,
+ "name_age_dupe_persons": 4,
+ "name_dob_dupe_persons": 0,
+ "top_names": [
+  [
+   "suleiman mohammed suleiman al-astal",
+   3
+  ],
+  [
+   "mohammed ahmed mohammed abu warda",
+   3
+  ],
+  [
+   "ibrahim khalil ibrahim al-tatari",
+   2
+  ],
+  [
+   "mohammed hassan mohammed salha",
+   2
+  ],
+  [
+   "abdel raouf saleh ali al-farra",
+   2
+  ],
+  [
+   "abdel rahman ahmed abdel rahman shehab",
+   2
+  ],
+  [
+   "ahmed abdel aziz mohammed abu sharia",
+   2
+  ],
+  [
+   "abdel rahman mohammed abdel rahman sabah",
+   2
+  ],
+  [
+   "mohammed hassan ali salem",
+   2
+  ],
+  [
+   "salim hussein salim shabaka",
+   2
+  ],
+  [
+   "mohammed rajab mohammed al-sultan",
+   2
+  ],
+  [
+   "mohammed ali mohammed al-qrinawi",
+   2
+  ],
+  [
+   "mohammed ahmed mohammed abu ghaben",
+   2
+  ],
+  [
+   "hassan hussein hassan azzam",
+   2
+  ],
+  [
+   "mohammed fadl mohammed abu ras",
+   2
+  ]
+ ],
+ "id_clusters": {
+  "count": 0,
+  "persons": 0,
+  "max": 0
+ },
+ "cohorts": [
+  {
+   "update": 1,
+   "n": 12264,
+   "f_pct": 43.2,
+   "median_age": 24.0,
+   "no_dob_pct": 0.0,
+   "age65_pct": 4.4
+  },
+  {
+   "update": 2,
+   "n": 5447,
+   "f_pct": 31.2,
+   "median_age": 28,
+   "no_dob_pct": 0.0,
+   "age65_pct": 5.4
+  },
+  {
+   "update": 3,
+   "n": 1970,
+   "f_pct": 24.9,
+   "median_age": 30.0,
+   "no_dob_pct": 0.0,
+   "age65_pct": 5.4
+  },
+  {
+   "update": 4,
+   "n": 6624,
+   "f_pct": 33.6,
+   "median_age": 27.0,
+   "no_dob_pct": 0.0,
+   "age65_pct": 7.1
+  },
+  {
+   "update": 5,
+   "n": 5642,
+   "f_pct": 30.0,
+   "median_age": 27.0,
+   "no_dob_pct": 0.0,
+   "age65_pct": 5.6
+  },
+  {
+   "update": 6,
+   "n": 18408,
+   "f_pct": 28.1,
+   "median_age": 27.0,
+   "no_dob_pct": 0.0,
+   "age65_pct": 4.6
+  },
+  {
+   "update": 7,
+   "n": 5061,
+   "f_pct": 29.9,
+   "median_age": 26,
+   "no_dob_pct": 0.0,
+   "age65_pct": 3.6
+  },
+  {
+   "update": 8,
+   "n": 3147,
+   "f_pct": 20.8,
+   "median_age": 27,
+   "no_dob_pct": 0.0,
+   "age65_pct": 3.4
+  },
+  {
+   "update": 9,
+   "n": 1765,
+   "f_pct": 26.2,
+   "median_age": 27,
+   "no_dob_pct": 0.0,
+   "age65_pct": 4.4
+  },
+  {
+   "update": 10,
+   "n": 12507,
+   "f_pct": 21.2,
+   "median_age": 28,
+   "no_dob_pct": 0.0,
+   "age65_pct": 3.7
+  }
+ ],
+ "killed_cum": 73333,
+ "ext_killed_cum": 73333,
+ "famine_cum": 463,
+ "child_famine_cum": 157,
+ "aid_seeker_killed_cum": 2615,
+ "injured_cum": 174023,
+ "top_days": [
+  [
+   "2025-10-04",
+   786
+  ],
+  [
+   "2023-10-25",
+   756
+  ],
+  [
+   "2025-04-27",
+   748
+  ],
+  [
+   "2023-12-05",
+   725
+  ],
+  [
+   "2023-10-24",
+   704
+  ],
+  [
+   "2025-03-19",
+   604
+  ],
+  [
+   "2025-02-08",
+   598
+  ],
+  [
+   "2025-01-11",
+   531
+  ]
+ ],
+ "monthly": {
+  "2023-10": 8525,
+  "2023-11": 2553,
+  "2023-12": 6304,
+  "2024-01": 4963,
+  "2024-02": 3135,
+  "2024-03": 2747,
+  "2024-04": 1753,
+  "2024-05": 1749,
+  "2024-06": 1593,
+  "2024-07": 1568,
+  "2024-08": 1246,
+  "2024-09": 924,
+  "2024-10": 1589,
+  "2024-11": 1178,
+  "2024-12": 1159,
+  "2025-01": 1919,
+  "2025-02": 905,
+  "2025-03": 1992,
+  "2025-04": 2043,
+  "2025-05": 1981,
+  "2025-06": 2150,
+  "2025-07": 3718,
+  "2025-08": 3210,
+  "2025-09": 2638,
+  "2025-10": 2546,
+  "2025-11": 1460,
+  "2025-12": 1166,
+  "2026-01": 500,
+  "2026-02": 326,
+  "2026-03": 190,
+  "2026-04": 316,
+  "2026-05": 338,
+  "2026-06": 127,
+  "2026-07": 267
+ },
+ "post_ceasefire_reported": 6122
+}
