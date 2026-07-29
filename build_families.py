@@ -121,11 +121,11 @@ for k, F in fams.items():
              "sib": len(clusters), "big": max(clusters) if clusters else 0}
     if press_by_fam.get(k):
         entry["p"] = press_by_fam[k]
+        # Namen der getoeteten Journalisten dieser Familie (fuers Abzeichen im Panel)
+        entry["pn"] = [{k2: v2 for k2, v2 in x.items() if v2} for x in press_names[k][:8]]
     if hw_by_fam.get(k):
         entry["hw"] = hw_by_fam[k]
         entry["hwn"] = hw_names[k]
-        # Namen der getoeteten Journalisten dieser Familie (fuers Abzeichen im Panel)
-        entry["pn"] = [{k2: v2 for k2, v2 in x.items() if v2} for x in press_names[k][:8]]
     fam_list.append(entry)
 fam_list.sort(key=lambda x: -x["n"])
 fam_index = {f["k"]: i for i, f in enumerate(fam_list)}

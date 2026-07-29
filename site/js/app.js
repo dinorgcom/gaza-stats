@@ -434,12 +434,14 @@
     };
     const BADGE_ORDER = ["fighter", "press", "medic", "prisoner", "official", "victims"];
 
+    // Uebersetzte Detailtexte: Overlay ist index-parallel zu famnotes.notable
+    const noteInfo = p => (p._k && ((window.FAMNOTES_I18N || {})[p._k]?.notable?.[p._i] || {})[LANG]) || p.info;
     function famBadges(f) {
       const out = {}, FN = (window.FAM_NOTES || {})[f.k] || {};
-      (FN.notable || []).forEach(p => {
+      (FN.notable || []).forEach((p, _i) => {
         if (!p.badge) return;
         (Array.isArray(p.badge) ? p.badge : [p.badge]).forEach(k => {
-          if (BADGE[k]) (out[k] = out[k] || []).push(p);
+          if (BADGE[k]) (out[k] = out[k] || []).push({ ...p, _i, _k: f.k });
         });
       });
       (FN.tags || []).forEach(k => { if (BADGE[k] && !out[k]) out[k] = []; }); // Alt-Format ohne Person
@@ -462,7 +464,7 @@
         const B = BADGE[b.key];
         const who = b.people.length ? b.people.map(p =>
             (p.url ? `<a href="${p.url}" target="_blank" rel="noopener">${esc(p.name)}</a>` : `<b>${esc(p.name)}</b>`)
-            + (p.info ? ` <span class="fine">— ${esc(p.info)}</span>` : "")).join("<br>")
+            + (noteInfo(p) ? ` <span class="fine">— ${esc(noteInfo(p))}</span>` : "")).join("<br>")
           : `<span class="fine">${t("fam.badge.undoc")}</span>`;
         return `<div class="badgeline"><span class="bdg ${B.cls}">${B.sym}</span>
           <div><b>${B.label}</b><div class="badgewho">${who}</div></div></div>`;
@@ -536,14 +538,17 @@
       // Recherchierte Herkunft + Abzeichen mit Namen + sonstige Anmerkungen
       const FN = (window.FAM_NOTES || {})[f.k];
       let notes = "";
-      const orig = (FN && FN.origin) || (window.FAM_ORIGINS || {})[f.k];
+      const orig = ((window.FAMNOTES_I18N || {})[f.k]?.origin || {})[LANG]
+        || (FN && FN.origin)
+        || ((window.FAM_ORIGINS_I18N || {})[f.k] || {})[LANG]
+        || (window.FAM_ORIGINS || {})[f.k];
       if (orig)
         notes += `<div class="origin"><span class="lbl">${t("fam.origin.lbl")}</span> ${orig}</div>`;
       notes += badgeBlock(f);
-      const rest = ((FN || {}).notable || []).filter(p => !p.badge);
+      const rest = ((FN || {}).notable || []).map((p, _i) => ({ ...p, _i, _k: f.k })).filter(p => !p.badge);
       if (rest.length) notes += `<div class="origin">` + rest.map(p =>
         `<div><span class="lbl">${t("fam.also")}</span> <a href="${p.url}" target="_blank" rel="noopener">${esc(p.name)}</a>
-          — ${p.info}</div>`).join("") + `</div>`;
+          — ${noteInfo(p)}</div>`).join("") + `</div>`;
       detail.hidden = false;
       detail.innerHTML = `<h3>${t("fam.family", cap(f.k))}${badgeHtml(f)}</h3>
         <p class="desc">${t("fam.meta", nf.format(f.n), f.m, f.f, f.kids)} ${f.sib ? t("fam.sib", f.sib, f.big) : ""}</p>${notes}${clusters}${members}`;

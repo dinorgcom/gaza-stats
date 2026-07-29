@@ -16,9 +16,9 @@
                       en: "The Gaza Health Ministry's casualty list, consolidated by Iraq Body Count — every name with ID, birth date, age and sex. Here it is not just displayed but stress-tested: for plausibility, gaps, and the statistical disputes.",
                       ar: "قائمة قتلى وزارة الصحة في غزة، موحّدة عبر Iraq Body Count — بالأسماء مع الهوية وتاريخ الميلاد والعمر والجنس. هنا لا تُعرض فحسب، بل تُفحص: المعقولية والثغرات والخلافات الإحصائية.",
                       he: "רשימת ההרוגים של משרד הבריאות בעזה, מאוחדת בידי Iraq Body Count — שמית, עם ת\"ז, תאריך לידה, גיל ומין. כאן היא לא רק מוצגת אלא נבחנת: סבירות, פערים והמחלוקות הסטטיסטיות." },
-    "hero.banner":  { de: "", en: "Fully translated — only the family detail notes (origins, named individuals) and press headlines remain in their original language for now.",
-                      ar: "الصفحة مترجمة بالكامل — فقط ملاحظات تفاصيل العائلات (الأصول والأفراد) وعناوين الصحف تبقى بلغتها الأصلية حالياً.",
-                      he: "העמוד מתורגם במלואו — רק הערות פרטי המשפחות (מקורות, מזוהים) וכותרות העיתונות נותרות בינתיים בשפת המקור." },
+    "hero.banner":  { de: "", en: "Fully translated — only press headlines stay in their original language (quotes are not translated).",
+                      ar: "الصفحة مترجمة بالكامل — عناوين الصحف فقط تبقى بلغتها الأصلية (الاقتباسات لا تُترجم).",
+                      he: "העמוד מתורגם במלואו — רק כותרות העיתונות נותרות בשפת המקור (ציטוטים אינם מתורגמים)." },
     // Navigation
     "nav.pyr":      { de: "Pyramide", en: "Pyramid", ar: "الهرم العمري", he: "פירמידה" },
     "nav.komb":     { de: "Kombattanten-Abzug", en: "Combatant deduction", ar: "خصم المقاتلين", he: "ניכוי לוחמים" },
