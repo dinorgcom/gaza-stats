@@ -179,7 +179,7 @@
     sw.innerHTML = LANGS.map(l =>
       `<button data-l="${l}"${l === LANG ? ' class="active"' : ""}>${{ de: "DE", en: "EN", ar: "عربي", he: "עברית" }[l]}</button>`).join("");
     sw.addEventListener("click", e => { const b = e.target.closest("button"); if (b) window.setLang(b.dataset.l); });
-    document.querySelector(".toc")?.appendChild(sw);
+    (document.getElementById("langSlot") || document.querySelector(".toc"))?.appendChild(sw);
     // Signal fuer Module, die auf die fertige Content-Ersetzung warten (z.B. Share-Restore)
     window.__i18nDone = true;
     document.dispatchEvent(new CustomEvent("i18n-done"));

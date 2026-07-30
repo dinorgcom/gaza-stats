@@ -103,10 +103,13 @@ ready(() => {
   controls.minDistance = 5; controls.maxDistance = 34;
   controls.autoRotate = !matchMedia("(prefers-reduced-motion: reduce)").matches;
   controls.autoRotateSpeed = 0.7;
-  renderer.domElement.addEventListener("pointerdown", () => { controls.autoRotate = false; }, { once: true });
+  // Auf Touch-Geraeten ist die Pyramide ein sich drehendes Bild: die Canvas nimmt per CSS
+  // keine Zeigerereignisse an, ein Wisch scrollt also immer die Seite. controls bleibt
+  // aktiv (sonst stoppt in manchen three-Versionen auch die Eigenrotation).
   if (matchMedia("(pointer: coarse)").matches) {
-    controls.touches.ONE = null;                      // ein Finger scrollt die Seite weiter
-    controls.touches.TWO = THREE.TOUCH.DOLLY_ROTATE;  // zwei Finger drehen + zoomen
+    controls.autoRotate = true;
+  } else {
+    renderer.domElement.addEventListener("pointerdown", () => { controls.autoRotate = false; }, { once: true });
   }
 
   // Hover-Tooltip

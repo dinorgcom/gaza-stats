@@ -116,7 +116,15 @@ main { max-width: var(--maxw); margin: 0 auto; padding: 0 20px 90px; }
 .bdg { font-size: 13px; margin-inline-start: 5px; cursor: help; }
 
 /* Sprachumschalter + RTL */
-.langswitch { margin-inline-start: auto; display: flex; gap: 4px; }
+/* Oberste Leiste: Teilen links, Sprachen rechts (spiegelt sich in RTL automatisch) */
+.topbar { display: flex; align-items: center; gap: 10px; padding: 7px 20px;
+  border-bottom: 1px solid var(--grid); background: var(--page); }
+.topbar #topShare { margin-inline-end: auto; margin-top: 0; }
+.topbar .sharemain { padding: 5px 13px; font-size: 13px; }
+.topbar .sharemini { min-width: 32px; height: 28px; font-size: 12px; }
+@media (max-width: 700px) { .topbar .sharemini { display: none; } }
+
+.langswitch { display: flex; gap: 4px; }
 .langswitch button { background: none; border: 1px solid transparent; border-radius: 7px; color: var(--muted);
   font: inherit; font-size: 13px; padding: 5px 9px; cursor: pointer; white-space: nowrap; }
 .langswitch button:hover { color: var(--ink); background: var(--surface); }
@@ -238,11 +246,10 @@ main { max-width: var(--maxw); margin: 0 auto; padding: 0 20px 90px; }
   .mod { margin-top: 56px; }
   .mod h2 { font-size: 22px; }
   .lede { font-size: 14.5px; margin-bottom: 16px; }
-  /* Sticky-Nav: Sprachumschalter zuerst, dann scrollende Kapitel-Links */
   .toc { gap: 2px; padding: 7px 10px; }
   .toc a { font-size: 12.5px; padding: 5px 8px; }
-  .langswitch { order: -1; margin-inline-start: 0; margin-inline-end: 6px;
-    padding-inline-end: 8px; border-inline-end: 1px solid var(--grid); flex: none; }
+  .topbar { padding: 6px 14px; gap: 8px; }
+  .topbar .sharemain { padding: 5px 11px; font-size: 12.5px; }
   .langswitch button { padding: 4px 7px; font-size: 12px; }
   /* SVG-Charts: Lesbarkeit vor Verkleinerung — sie scrollen im Kasten */
   .viz > svg { min-width: 640px; }
@@ -268,6 +275,8 @@ main { max-width: var(--maxw); margin: 0 auto; padding: 0 20px 90px; }
   .famrow .meta { font-size: 12.5px; }
 }
 @media (pointer: coarse) {
-  /* Ein Finger scrollt die Seite ueber der Pyramide; gedreht wird mit zwei Fingern */
+  /* Touch: die Pyramide ist ein sich drehendes Bild — Finger scrollen die Seite,
+     die Grafik faengt keine Gesten ab (OrbitControls ist dort abgeschaltet). */
   .viz3d { touch-action: pan-y; }
+  .viz3d canvas { pointer-events: none; }
 }
