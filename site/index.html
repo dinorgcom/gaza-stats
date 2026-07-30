@@ -21,12 +21,6 @@
 if (location.pathname.startsWith("/gaza")) document.write('<base href="/gaza/">');</script>
 <link rel="stylesheet" href="css/style.css">
 <script src="js/i18n.js"></script>
-<script type="importmap">
-{ "imports": {
-  "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js",
-  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"
-} }
-</script>
 </head>
 <body>
 
@@ -63,11 +57,11 @@ if (location.pathname.startsWith("/gaza")) document.write('<base href="/gaza/">'
 <section id="pyramide" class="mod">
   <h2>Wer starb: die Alterspyramide</h2>
   <p class="lede">Alle 72.835 namentlich Erfassten — <strong>ein Balken pro Lebensjahr</strong> (0 bis 90+).
-     Am Rechner: Ziehen zum Drehen, Rad zum Zoomen, Zeigen für Details — am Handy dreht sie sich von selbst.
-     Mit den Szenario-Knöpfen unten lässt sich der IDF-Kombattanten-Abzug direkt in der Pyramide darstellen.</p>
+     Männer nach rechts, Frauen nach links; der dunkle Anteil zeigt den im nächsten Kapitel
+     gewählten Kombattanten-Abzug.</p>
   <div class="legend"><span class="sw sw-m"></span>Männer <span class="sw sw-f"></span>Frauen
     <span class="sw sw-c"></span>davon Kombattanten (Szenario-Annahme)</div>
-  <div id="pyr3d" class="viz3d" aria-label="3D-Alterspyramide"></div>
+  <div id="pyrChart" class="viz" aria-label="Alterspyramide"></div>
   <details class="tbl"><summary>Tabellenansicht</summary><div id="pyrTable"></div></details>
 </section>
 
@@ -356,6 +350,6 @@ if (location.pathname.startsWith("/gaza")) document.write('<base href="/gaza/">'
 <script src="js/famnotes-i18n.js"></script>
 <script src="js/content.js"></script>
 <script src="js/app.js"></script>
-<script type="module" src="js/pyramid3d.js"></script>
+<script src="js/pyramid.js"></script>
 </body>
 </html>

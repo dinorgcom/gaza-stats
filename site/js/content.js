@@ -5,9 +5,9 @@
 
 window.I18N_CONTENT = [
 ["#pyramide .lede", {
-  en: `All 72,835 named victims — <strong>one bar per year of age</strong> (0 to 90+). On desktop: drag to rotate, scroll to zoom, hover for details — on phones it turns by itself. The scenario buttons below project the IDF combatant deduction directly onto the pyramid.`,
-  ar: `جميع المسجّلين بالاسم البالغ عددهم 72,835 — <strong>عمود لكل سنة عمرية</strong> (0 حتى +90). على الحاسوب: اسحب للتدوير ومرّر للتقريب — وعلى الهاتف يدور من تلقاء نفسه. أزرار السيناريو أدناه تعرض خصم المقاتلين مباشرة على الهرم.`,
-  he: `כל 72,835 המזוהים בשם — <strong>עמודה לכל שנת גיל</strong> (0 עד +90). במחשב: גררו לסיבוב וגלגלו לזום — ובנייד היא מסתובבת מעצמה. כפתורי התרחיש למטה מציגים את ניכוי הלוחמים ישירות על הפירמידה.`}],
+  en: `All 72,835 named victims — <strong>one bar per year of age</strong> (0 to 90+). Men to the right, women to the left; the darker share shows the combatant deduction chosen in the next chapter.`,
+  ar: `جميع المسجّلين بالاسم البالغ عددهم 72,835 — <strong>عمود لكل سنة عمرية</strong> (0 حتى +90). الرجال إلى اليمين والنساء إلى اليسار؛ والجزء الغامق يُظهر خصم المقاتلين المختار في الفصل التالي.`,
+  he: `כל 72,835 המזוהים בשם — <strong>עמודה לכל שנת גיל</strong> (0 עד +90). גברים ימינה, נשים שמאלה; החלק הכהה מציג את ניכוי הלוחמים שנבחר בפרק הבא.`}],
 ["#pyramide .legend", {
   en: `<span class="sw sw-m"></span>Men <span class="sw sw-f"></span>Women <span class="sw sw-c"></span>of them combatants (scenario assumption)`,
   ar: `<span class="sw sw-m"></span>رجال <span class="sw sw-f"></span>نساء <span class="sw sw-c"></span>منهم مقاتلون (افتراض السيناريو)`,
